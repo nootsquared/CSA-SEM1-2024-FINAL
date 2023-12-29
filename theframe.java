@@ -2,6 +2,8 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class theframe extends JFrame {
     theframe() {
@@ -36,6 +38,7 @@ public class theframe extends JFrame {
             button.setRolloverEnabled(true);
             button.setContentAreaFilled(false);
             button.setUI(new BasicButtonUI() {
+            
                 @Override
                 public void update(Graphics g, JComponent c) {
                     if (c instanceof AbstractButton) {
@@ -55,6 +58,32 @@ public class theframe extends JFrame {
                     super.update(g, c);
                 }
             });
+            if (buttonLabel.equals("Shop")) {
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Point currentLocation = theframe.this.getLocation();
+                        Color backgroundColor = getContentPane().getBackground();
+                        dispose();
+                        ShopFrame shopFrame = new ShopFrame(backgroundColor, theframe.this);
+                        shopFrame.setLocation(currentLocation);
+                        shopFrame.setVisible(true);
+                    }
+                });
+            }
+            if (buttonLabel.equals("Games")) {
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Point currentLocation = theframe.this.getLocation();
+                        Color backgroundColor = getContentPane().getBackground();
+                        dispose();
+                        GamesFrame gamesFrame = new GamesFrame(backgroundColor, theframe.this);
+                        gamesFrame.setLocation(currentLocation);
+                        gamesFrame.setVisible(true);
+                    }
+                });
+            }
             gridPanel.add(button);
         }
         buttonPanel.add(gridPanel);

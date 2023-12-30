@@ -7,11 +7,10 @@ public class ShopFrame extends JFrame {
         this.setResizable(false);
         this.setSize(700, 700);
         this.getContentPane().setBackground(backgroundColor);
+
+        this.setLayout(null);
         BackButton backButton = new BackButton(this, mainFrame);
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(backgroundColor);
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        panel.add(backButton, BorderLayout.WEST);
-        this.add(panel, BorderLayout.NORTH);
+        this.getContentPane().add(backButton);
+
     }
 }

@@ -30,36 +30,9 @@ public class theframe extends JFrame {
 
         String[] buttonLabels = {"Shop", "Games", "Coming", "Coming"};
         for (String buttonLabel : buttonLabels) {
-            JButton button = new JButton(buttonLabel);
-            button.setForeground(Color.WHITE);
-            button.setPreferredSize(new Dimension(250, 250));
-            button.setBorder(new ShadowBorder());
-            button.setFocusPainted(false);
-            button.setRolloverEnabled(true);
-            button.setContentAreaFilled(false);
-            button.setUI(new BasicButtonUI() {
-            
-                @Override
-                public void update(Graphics g, JComponent c) {
-                    if (c instanceof AbstractButton) {
-                        AbstractButton b = (AbstractButton) c;
-                        ButtonModel model = b.getModel();
-
-                        if (model.isPressed()) {
-                            g.setColor(Color.BLACK);
-                        } else if (model.isRollover()) {
-                            g.setColor(Color.DARK_GRAY.darker());
-                        } else {
-                            g.setColor(Color.DARK_GRAY);
-                        }
-
-                        g.fillRoundRect(0, 0, b.getWidth(), b.getHeight(), 15, 15);
-                    }
-                    super.update(g, c);
-                }
-            });
+            CustomButton menubutton = new CustomButton(buttonLabel, 250, 250, 0, 0);
             if (buttonLabel.equals("Shop")) {
-                button.addActionListener(new ActionListener() {
+                menubutton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Point currentLocation = theframe.this.getLocation();
@@ -72,7 +45,7 @@ public class theframe extends JFrame {
                 });
             }
             if (buttonLabel.equals("Games")) {
-                button.addActionListener(new ActionListener() {
+                menubutton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Point currentLocation = theframe.this.getLocation();
@@ -84,7 +57,7 @@ public class theframe extends JFrame {
                     }
                 });
             }
-            gridPanel.add(button);
+            gridPanel.add(menubutton);
         }
         buttonPanel.add(gridPanel);
         this.add(buttonPanel, BorderLayout.CENTER);

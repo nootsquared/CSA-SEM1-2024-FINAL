@@ -1,10 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+
 
 public class GamesFrame extends JFrame {
     GamesFrame(Color backgroundColor, JFrame mainFrame) {
 
-        Font montserrat20 = FontLoader.loadFont("/Montserrat-Medium.ttf", 20f);
+        Font montserrat20 = FontLoader.loadFont("/ElectronicHighwaySign.TTF", 22f);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -12,24 +17,38 @@ public class GamesFrame extends JFrame {
         this.getContentPane().setBackground(backgroundColor);
 
         this.setLayout(null);
-        CustomButton button = new CustomButton("Car Game", 200, 50, 250, 70);
-        this.getContentPane().add(button);
+        CustomButton button = new CustomButton("Car Game", 350, 350, 175, 70);
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // Path to the Unity game's executable
+                    String unityGamePath = "myfinal\\5MinuteMayham.exe";
 
-        CustomButton standby = new CustomButton("Nothing", 200, 50, 250, 130);
-        this.getContentPane().add(standby);
-        CustomButton standby2 = new CustomButton("Nothing", 200, 50, 250, 190);
-        this.getContentPane().add(standby2);
-        CustomButton standby3 = new CustomButton("Nothing", 200, 50, 250, 250);
-        this.getContentPane().add(standby3);
-        CustomButton standby4 = new CustomButton("Nothing", 200, 50, 250, 310);
-        this.getContentPane().add(standby4);
-        CustomButton standby5 = new CustomButton("Nothing", 200, 50, 250, 370);
-        this.getContentPane().add(standby5);
-        CustomButton standby6 = new CustomButton("Nothing", 200, 50, 250, 430);
-        this.getContentPane().add(standby6);
+                    String width = "1280";
+                    String height = "720";
+                    // Start the Unity game
+                    ProcessBuilder pb = new ProcessBuilder(unityGamePath, "-screen-width", width, "-screen-height", height);
+                    Process unityGameProcess = pb.start();
+
+                    // Hide the GamesFrame
+                    GamesFrame.this.setVisible(false);
+
+                    // Wait for the Unity game to close
+                    unityGameProcess.waitFor();
+
+                    // Reopen the GamesFrame
+                    GamesFrame.this.setVisible(true);
+                } catch (IOException | InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        });
+        this.getContentPane().add(button);
 
         BackButton backButton = new BackButton(this, mainFrame);
         this.getContentPane().add(backButton);
+        
 
         JLabel gamesLabel = new JLabel("Games");
         gamesLabel.setFont(montserrat20);

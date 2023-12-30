@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
 public class CustomButton extends JButton {
     public CustomButton(String text, int width, int height, int x, int y) {
@@ -32,5 +34,15 @@ public class CustomButton extends JButton {
                 super.update(g, c);
             }
         });
+
+        try {
+            // Load the EHS font from a .ttf file
+            Font ehsFont = Font.createFont(Font.TRUETYPE_FONT, new File("ElectronicHighwaySign.ttf")).deriveFont(18f);
+
+            // Set the font of the button to EHS
+            setFont(ehsFont);
+        } catch (FontFormatException | IOException e) {
+            e.printStackTrace();
+        }
     }
 }

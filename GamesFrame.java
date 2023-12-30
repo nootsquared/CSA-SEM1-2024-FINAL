@@ -9,7 +9,7 @@ import java.io.IOException;
 public class GamesFrame extends JFrame {
     GamesFrame(Color backgroundColor, JFrame mainFrame) {
 
-        Font montserrat20 = FontLoader.loadFont("/ElectronicHighwaySign.TTF", 22f);
+        Font montserrat20 = FontLoader.loadFont("fonts/ElectronicHighwaySign.TTF", 22f);
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);

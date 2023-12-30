@@ -12,8 +12,8 @@ public class theframe extends JFrame {
         this.setSize(700, 700);
         this.getContentPane().setBackground(Color.DARK_GRAY);
 
-        Font EHS = FontLoader.loadFont("/ElectronicHighwaySign.TTF", 20f);
-        Font montserrat20 = FontLoader.loadFont("/Montserrat-Medium.ttf", 20f);
+        Font EHS = FontLoader.loadFont("fonts\\ElectronicHighwaySign.TTF", 20f);
+        Font montserrat20 = FontLoader.loadFont("fonts\\Montserrat-Medium.ttf", 20f);
 
         JLabel label = new JLabel("Welcome to the panel. What do you want to do?", SwingConstants.CENTER);
         label.setForeground(Color.WHITE);

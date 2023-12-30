@@ -37,7 +37,7 @@ public class CustomButton extends JButton {
 
         try {
             // Load the EHS font from a .ttf file
-            Font ehsFont = Font.createFont(Font.TRUETYPE_FONT, new File("ElectronicHighwaySign.ttf")).deriveFont(18f);
+            Font ehsFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts\\ElectronicHighwaySign.TTF")).deriveFont(18f);
 
             // Set the font of the button to EHS
             setFont(ehsFont);

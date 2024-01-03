@@ -8,13 +8,20 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class PravaFrame extends JFrame {
     private JTextArea textArea;
     private Color backgroundColor;
     Font EHS1 = FontLoader.loadFont("fonts\\ElectronicHighwaySign.TTF", 16f);
-
+    CoinCount coinCount = new CoinCount("coin.txt");
     PravaFrame(Color backgroundColor, JFrame mainFrame) {
+
+        CoinCount coinCount = new CoinCount("coin.txt");
         this.backgroundColor = backgroundColor;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -72,7 +79,7 @@ public class PravaFrame extends JFrame {
         ideLabel.setBounds(centerX, centerY - 50, 100, 50); // Adjust the position and size as needed
         this.getContentPane().add(ideLabel);
 
-        CustomButton runButton = new CustomButton("Run", 100, 50, centerX, centerY + 410);
+        CustomButton runButton = new CustomButton("Run(-1)", 100, 50, centerX, centerY + 410);
         runButton.addActionListener(new RunActionListener());
         this.getContentPane().add(runButton);
 
@@ -86,6 +93,8 @@ public class PravaFrame extends JFrame {
         textArea.requestFocusInWindow();
     }
 
+    // Add missing imports
+
     private void loadFile() {
         try {
             String content = new String(Files.readAllBytes(Paths.get("prava/source.txt")));
@@ -94,21 +103,32 @@ public class PravaFrame extends JFrame {
             ex.printStackTrace();
         }
     }
+
     private class RunActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             try {
-                Files.write(Paths.get("prava/source.txt"), textArea.getText().getBytes());
-    
-                ProcessBuilder pb = new ProcessBuilder("python", "prava/main.py");
-                Process p = pb.start();
-                p.waitFor();
-    
-                String javaOutput = new String(Files.readAllBytes(Paths.get("prava/java_output.txt")));
-    
-                OutputFrame outputFrame = new OutputFrame(backgroundColor);
-                outputFrame.setOutput(javaOutput);
-                outputFrame.setVisible(true);
+                if (coinCount.getCurrentCount() - 1 >= 0) {
+                    Files.write(Paths.get("prava/source.txt"), textArea.getText().getBytes());
+
+                    ProcessBuilder pb = new ProcessBuilder("python", "prava/main.py");
+                    Process p = pb.start();
+                    p.waitFor();
+
+                    String javaOutput = new String(Files.readAllBytes(Paths.get("prava/java_output.txt")));
+
+                    OutputFrame outputFrame = new OutputFrame(backgroundColor);
+                    outputFrame.setOutput(javaOutput);
+                    outputFrame.setVisible(true);
+
+                    // Remove a coin
+                    try {
+                        coinCount.changeCount(-1);
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                        System.out.println("Error updating the coin count");
+                    }
+                }
             } catch (IOException | InterruptedException ex) {
                 ex.printStackTrace();
             }

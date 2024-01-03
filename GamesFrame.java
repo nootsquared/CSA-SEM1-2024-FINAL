@@ -20,12 +20,12 @@ public class GamesFrame extends JFrame {
         this.getContentPane().setBackground(backgroundColor);
 
         this.setLayout(null);
-        CustomButton button = new CustomButton("5 Minute Mayhem", 350, 350, 175, 70);
+        CustomButton button = new CustomButton("5 Minute Mayhem (-10)", 350, 350, 175, 70);
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (coinCount.getCurrentCount() - 10 >= 0) {
+                    if (coinCount.getCurrentCount() - 1 >= 0) {
                         try {
                             String unityGamePath = "myfinal\\5MinuteMayham.exe";
                             String width = "1280";

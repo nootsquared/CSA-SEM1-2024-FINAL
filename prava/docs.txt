@@ -1,0 +1,55 @@
+
+
+# Class and method declarations
+"thingie": "class",
+"publicstaticthing": "public static void main(String[] args)",
+
+# Print statements
+"yapbutonanewline": "System.out.println",
+"yap": "System.out.print",
+
+# Control structures
+"fr": "for",
+"sus" : "if",
+"onelastresort" : "else if",
+"bruh" : "else",
+"wyd" : "while",
+
+# Return and break statements
+"gimme": "return",
+"backoff": "break",
+
+# Comparison and equality operators
+"bet": "equals",
+"nah" : "!=",
+"yuh" : "==",
+
+# Arithmetic operators
+"pluh" : "+",
+"shlawg" : "-",
+"lilbro" : "/",
+"bigbro" : "*",
+
+# Assignment and boolean operators
+"nocap" : "=",
+"ong" : "True",
+"cap" : "False",
+
+# Relational operators
+"lit" : "<",
+"bro" : ">",
+
+# Data types
+"lowkey": "int",
+"highkey" : "String",
+"buffedlowkey" : "double",
+
+# Scanner methods
+"nextLowkey" : "nextInt",
+"nextHighkey" : "nextLine",
+
+# String methods
+"subby":"substring",
+
+# End of statement
+" mk": ";",

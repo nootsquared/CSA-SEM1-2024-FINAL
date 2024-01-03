@@ -1,19 +1,16 @@
 import javax.swing.*;
 import javax.swing.border.AbstractBorder;
-import javax.swing.border.Border;
-
 import java.awt.*;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 public class GamesFrame extends JFrame {
+    private JLabel coinsLabel;
+    CoinCount coinCount = new CoinCount("coin.txt");
     GamesFrame(Color backgroundColor, JFrame mainFrame) {
-
-        
-
         Font montserrat20 = FontLoader.loadFont("fonts/ElectronicHighwaySign.TTF", 22f);
         Font montserrat10 = FontLoader.loadFont("fonts/ElectronicHighwaySign.TTF", 18f);
 
@@ -28,34 +25,35 @@ public class GamesFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // Path to the Unity game's executable
-                    String unityGamePath = "myfinal\\5MinuteMayham.exe";
-
-                    String width = "1280";
-                    String height = "720";
-                    // Start the Unity game
-                    ProcessBuilder pb = new ProcessBuilder(unityGamePath, "-screen-width", width, "-screen-height", height);
-                    Process unityGameProcess = pb.start();
-
-                    // Hide the GamesFrame
-                    GamesFrame.this.setVisible(false);
-
-                    // Wait for the Unity game to close
-                    unityGameProcess.waitFor();
-
-                    // Reopen the GamesFrame
-                    GamesFrame.this.setVisible(true);
-                } catch (IOException | InterruptedException ex) {
+                    if (coinCount.getCurrentCount() - 10 >= 0) {
+                        try {
+                            String unityGamePath = "myfinal\\5MinuteMayham.exe";
+                            String width = "1280";
+                            String height = "720";
+                            ProcessBuilder pb = new ProcessBuilder(unityGamePath, "-screen-width", width, "-screen-height", height);
+                            Process unityGameProcess = pb.start();
+                            GamesFrame.this.setVisible(false);
+                            unityGameProcess.waitFor();
+                            GamesFrame.this.setVisible(true);
+            
+                            coinCount.changeCount(-10);
+            
+                        } catch (IOException | InterruptedException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                } 
+                catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                    
+                }
             }
-        });
+        );
         this.getContentPane().add(button);
 
         BackButton backButton = new BackButton(this, mainFrame);
         this.getContentPane().add(backButton);
-        
-        
 
         JLabel gamesLabel = new JLabel("Games");
         gamesLabel.setFont(montserrat20);
@@ -64,7 +62,7 @@ public class GamesFrame extends JFrame {
         gamesLabel.setForeground(Color.WHITE);
         this.getContentPane().add(gamesLabel);
 
-        
+
         JPanel statsPanel = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
@@ -75,44 +73,75 @@ public class GamesFrame extends JFrame {
         };
         statsPanel.setBounds(255, 450, 175, 100);
         statsPanel.setBackground(new Color(50, 50, 50));
-        
         AbstractBorder roundedBorder = new AbstractBorder() {
             @Override
             public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setColor(new Color(25, 25, 25));
-                g2d.setStroke(new BasicStroke(3)); // Set the thickness of the border
+                g2d.setStroke(new BasicStroke(3));
                 g2d.drawRoundRect(x, y, width-1, height-1, 15, 15);
             }
         };
         statsPanel.setBorder(roundedBorder);
+        int coins = 20;
+        int grade = 100;
 
-        // Create the coins label
-        JLabel coinsLabel = new JLabel("Coins: 20"); // Replace 100 with the actual coins variable
+        int currentCount = 0;
+        try {
+            currentCount = coinCount.getCurrentCount();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading from file");
+        }
+        JLabel coinsLabel = new JLabel("Coins: " + currentCount);
         coinsLabel.setFont(montserrat10);
         coinsLabel.setForeground(Color.WHITE);
 
-        // Create the ec label
-        JLabel ecLabel = new JLabel("Grade: 100"); // Replace 200 with the actual ec variable
+        GradeCount gradeCount = new GradeCount("grade.txt");
+        int currentGrade = 0;
+        try {
+             currentGrade = gradeCount.getCurrentGrade();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading from file");
+        }       
+        JLabel ecLabel = new JLabel("Grade: " + currentGrade + "%");
         ecLabel.setFont(montserrat10);
         ecLabel.setForeground(Color.WHITE);
 
-        // Create a GridBagConstraints object to specify where each component should be displayed
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridwidth = GridBagConstraints.REMAINDER;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.weighty = 1;
-        gbc.insets = new Insets(0, 0, -20, 0); // Add this line
-
-        // Add the labels to the panel
+        gbc.insets = new Insets(0, 0, -20, 0);
         statsPanel.add(coinsLabel, gbc);
-
-        gbc.insets = new Insets(-10, 0, 0, 0); // Add this line
+        gbc.insets = new Insets(-10, 0, 0, 0);
         statsPanel.add(ecLabel, gbc);
-
-        // Add the panel to the content pane
         this.getContentPane().add(statsPanel);
 
-        
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowActivated(WindowEvent e) {
+                // Update the coins label when the window is activated
+                try {
+                    coinsLabel.setText("Coins: " + coinCount.getCurrentCount());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                    System.out.println("Error reading from file");
+                }
+            }
+        });
     }
+    public void updateCoinsLabel() {
+        int currentCount = 0;
+        try {
+            currentCount = coinCount.getCurrentCount();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error reading from file");
+        }
+        coinsLabel.setText("Coins: " + currentCount);
+    }   
+    
 }

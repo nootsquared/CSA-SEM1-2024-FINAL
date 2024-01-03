@@ -12,6 +12,7 @@ import java.nio.file.Paths;
 public class PravaFrame extends JFrame {
     private JTextArea textArea;
     private Color backgroundColor;
+    Font EHS1 = FontLoader.loadFont("fonts\\ElectronicHighwaySign.TTF", 16f);
 
     PravaFrame(Color backgroundColor, JFrame mainFrame) {
         this.backgroundColor = backgroundColor;
@@ -75,6 +76,10 @@ public class PravaFrame extends JFrame {
         runButton.addActionListener(new RunActionListener());
         this.getContentPane().add(runButton);
 
+        CustomButton docsButton = new CustomButton("Docs", 100, 50, centerX+300, centerY + 410);
+        docsButton.addActionListener(new DocsActionListener());
+        this.getContentPane().add(docsButton);
+
         loadFile();
 
         // Request focus on the textArea
@@ -105,6 +110,33 @@ public class PravaFrame extends JFrame {
                 outputFrame.setOutput(javaOutput);
                 outputFrame.setVisible(true);
             } catch (IOException | InterruptedException ex) {
+                ex.printStackTrace();
+            }
+        }
+    }
+
+    private class DocsActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            JFrame docsFrame = new JFrame("Docs");
+            docsFrame.setSize(700, 700); // Adjust the size as needed
+            docsFrame.getContentPane().setBackground(backgroundColor); // Set the background color
+    
+            JTextArea docsTextArea = new JTextArea();
+            docsTextArea.setBackground(backgroundColor); // Set the background color of the text area
+            docsTextArea.setForeground(Color.WHITE); // Set the text color to white
+            docsTextArea.setFont(EHS1); // Set the font to EHS1
+    
+            JScrollPane docsScrollPane = new JScrollPane(docsTextArea);
+            docsScrollPane.setBounds(400, 400, 400, 400);
+            docsScrollPane.setBorder(null);
+            docsFrame.getContentPane().add(docsScrollPane);
+            docsFrame.setVisible(true);
+    
+            try {
+                String content = new String(Files.readAllBytes(Paths.get("prava\\docs.txt")));
+                docsTextArea.setText(content);
+            } catch (IOException ex) {
                 ex.printStackTrace();
             }
         }

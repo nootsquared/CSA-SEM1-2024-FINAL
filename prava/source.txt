@@ -1,0 +1,6 @@
+public thingie output{
+	publicstaticthing{
+		yapbutonanewline("mr.Rizzi") mk
+		yapbutonanewline("cuh") mk
+	}
+}

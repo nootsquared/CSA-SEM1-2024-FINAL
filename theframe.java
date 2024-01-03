@@ -28,7 +28,7 @@ public class theframe extends JFrame {
         JPanel gridPanel = new JPanel(new GridLayout(2, 2));
         gridPanel.setOpaque(false);
 
-        String[] buttonLabels = {"Shop", "Games", "Coming", "Coming"};
+        String[] buttonLabels = {"Shop", "Games", "Prava", "Coming"};
         for (String buttonLabel : buttonLabels) {
             CustomButton menubutton = new CustomButton(buttonLabel, 250, 250, 0, 0);
             if (buttonLabel.equals("Shop")) {
@@ -54,6 +54,19 @@ public class theframe extends JFrame {
                         GamesFrame gamesFrame = new GamesFrame(backgroundColor, theframe.this);
                         gamesFrame.setLocation(currentLocation);
                         gamesFrame.setVisible(true);
+                    }
+                });
+            }
+            if (buttonLabel.equals("Prava")) {
+                menubutton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Point currentLocation = theframe.this.getLocation();
+                        Color backgroundColor = getContentPane().getBackground();
+                        dispose();
+                        PravaFrame pravaFrame = new PravaFrame(backgroundColor, theframe.this);
+                        pravaFrame.setLocation(currentLocation);
+                        pravaFrame.setVisible(true);
                     }
                 });
             }

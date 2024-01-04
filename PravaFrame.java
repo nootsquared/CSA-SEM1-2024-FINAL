@@ -3,13 +3,6 @@ import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -21,43 +14,38 @@ public class PravaFrame extends JFrame {
     CoinCount coinCount = new CoinCount("coin.txt");
     PravaFrame(Color backgroundColor, JFrame mainFrame) {
 
-        CoinCount coinCount = new CoinCount("coin.txt");
         this.backgroundColor = backgroundColor;
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
         this.setSize(700, 700);
         this.getContentPane().setBackground(backgroundColor);
-        this.getContentPane().setFocusable(false); // Disable focus on the content pane
-        this.getContentPane().setLayout(null); // Set layout to null for absolute positioning
+        this.getContentPane().setFocusable(false);
+        this.getContentPane().setLayout(null);
 
         Font EHS = FontLoader.loadFont("fonts\\ElectronicHighwaySign.TTF", 20f);
         Font EHS1 = FontLoader.loadFont("fonts\\ElectronicHighwaySign.TTF", 16f);
-        Font EHS2 = FontLoader.loadFont("fonts\\Antonio.ttf", 16f);
 
         BackButton backButton = new BackButton(this, mainFrame);
         backButton.setBounds(10, 10, 100, 50);
         this.getContentPane().add(backButton);
 
         textArea = new JTextArea();
-        textArea.setFont(EHS1); // Set the font of the text area to EHS
-        textArea.setTabSize(2); // Set the tab size to 2
-        textArea.setBackground(backgroundColor); // Set the background color of the text box
-        textArea.setForeground(Color.WHITE); // Set the text color to white
-        textArea.setCaretColor(Color.WHITE); // Set the cursor color to white
-        textArea.setBorder(new ShadowBorder()); // Add a shadow around the text box
+        textArea.setFont(EHS1);
+        textArea.setTabSize(2);
+        textArea.setBackground(backgroundColor);
+        textArea.setForeground(Color.WHITE);
+        textArea.setCaretColor(Color.WHITE);
+        textArea.setBorder(new ShadowBorder());
 
-        // Calculate the center of the screen
         int centerX = (this.getWidth() - 400) / 2;
         int centerY = (this.getHeight() - 400) / 2;
 
-        // Resize the text box to a square and center it
         JScrollPane scrollPane = new JScrollPane(textArea);
-        scrollPane.setBackground(backgroundColor); // Set the background color of the scroll pane
-        scrollPane.getViewport().setBackground(backgroundColor); // Set the background color of the viewport
+        scrollPane.setBackground(backgroundColor);
+        scrollPane.getViewport().setBackground(backgroundColor);
         scrollPane.setBounds(centerX, centerY, 400, 400);
-        scrollPane.setBorder(null); // Remove border from the scroll pane
+        scrollPane.setBorder(null);
 
-        // Change the color of the scroll bars
         scrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
             @Override
             protected void configureScrollBarColors() {
@@ -75,8 +63,8 @@ public class PravaFrame extends JFrame {
 
         JLabel ideLabel = new JLabel("IDE");
         ideLabel.setFont(EHS);
-        ideLabel.setForeground(Color.WHITE); // Set the text color to white
-        ideLabel.setBounds(centerX, centerY - 50, 100, 50); // Adjust the position and size as needed
+        ideLabel.setForeground(Color.WHITE);
+        ideLabel.setBounds(centerX, centerY - 50, 100, 50);
         this.getContentPane().add(ideLabel);
 
         CustomButton runButton = new CustomButton("Run(-1)", 100, 50, centerX, centerY + 410);
@@ -89,17 +77,14 @@ public class PravaFrame extends JFrame {
 
         loadFile();
 
-        // Request focus on the textArea
         textArea.requestFocusInWindow();
 
         JLabel titleLabel = new JLabel("Prava");
-        titleLabel.setFont(EHS); // Assuming EHS is the desired font
-        titleLabel.setForeground(Color.WHITE); // Set the text color to white
-        titleLabel.setBounds(325, 10, 100, 50); // Adjust the position and size as needed
+        titleLabel.setFont(EHS);
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBounds(325, 10, 100, 50);
         this.getContentPane().add(titleLabel);
     }
-
-    // Add missing imports
 
     private void loadFile() {
         try {
@@ -127,7 +112,6 @@ public class PravaFrame extends JFrame {
                     outputFrame.setOutput(javaOutput);
                     outputFrame.setVisible(true);
 
-                    // Remove a coin
                     try {
                         coinCount.changeCount(-1);
                     } catch (IOException ex) {
@@ -145,13 +129,13 @@ public class PravaFrame extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             JFrame docsFrame = new JFrame("Docs");
-            docsFrame.setSize(700, 700); // Adjust the size as needed
-            docsFrame.getContentPane().setBackground(backgroundColor); // Set the background color
+            docsFrame.setSize(700, 700);
+            docsFrame.getContentPane().setBackground(backgroundColor);
     
             JTextArea docsTextArea = new JTextArea();
-            docsTextArea.setBackground(backgroundColor); // Set the background color of the text area
-            docsTextArea.setForeground(Color.WHITE); // Set the text color to white
-            docsTextArea.setFont(EHS1); // Set the font to EHS1
+            docsTextArea.setBackground(backgroundColor);
+            docsTextArea.setForeground(Color.WHITE);
+            docsTextArea.setFont(EHS1);
     
             JScrollPane docsScrollPane = new JScrollPane(docsTextArea);
             docsScrollPane.setBounds(400, 400, 400, 400);

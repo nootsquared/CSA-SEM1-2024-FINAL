@@ -25,7 +25,7 @@ public class OutputFrame extends JFrame {
         textArea.setForeground(Color.WHITE);
         textArea.setCaretColor(Color.WHITE);
         textArea.setBorder(new ShadowBorder());
-        textArea.setEditable(false); // Set the text area to non-editable
+        textArea.setEditable(false);
 
         int centerX = (this.getWidth() - 400) / 2;
         int centerY = (this.getHeight() - 400) / 2;

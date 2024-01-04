@@ -15,7 +15,7 @@ public class GradeCount {
             writer.write(String.valueOf(newGrade));
         }
     }
-
+    
     public int getCurrentGrade() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line = reader.readLine();

@@ -15,7 +15,7 @@ public class CoinCount {
             writer.write(String.valueOf(newCount));
         }
     }
-
+    
     public int getCurrentCount() throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line = reader.readLine();

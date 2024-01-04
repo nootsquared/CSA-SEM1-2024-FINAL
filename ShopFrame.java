@@ -16,8 +16,6 @@ public class ShopFrame extends JFrame {
     ShopFrame(Color backgroundColor, JFrame mainFrame) {
         coinsLabel = new JLabel();
         this.getContentPane().add(coinsLabel);
-
-        
         
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -51,8 +49,6 @@ public class ShopFrame extends JFrame {
             }
         };
         statsPanel.setBorder(roundedBorder);
-        int coins = 20;
-        int grade = 100;
 
         int currentCount = 0;
         try {
@@ -91,7 +87,6 @@ public class ShopFrame extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
-                // Update the coins label when the window is activated
                 try {
                     coinsLabel.setText("Coins: " + coinCount.getCurrentCount());
                 } catch (IOException ex) {
@@ -103,12 +98,10 @@ public class ShopFrame extends JFrame {
 
         int statsPanelX = 255;
         int statsPanelWidth = 175;
-        int buttonWidth = 200; // The actual width of the buttons
+        int buttonWidth = 200;
 
-        // Calculate the x-coordinate for the buttons
         int buttonX = statsPanelX + (statsPanelWidth - buttonWidth) / 2;
-
-        int buttonHeight = 50; // The actual height of the buttons
+        int buttonHeight = 50;
 
         CustomButton button1 = new CustomButton("+1 Coin", buttonWidth, buttonHeight, buttonX, 220);
         button1.addActionListener(new ActionListener() {
@@ -116,10 +109,9 @@ public class ShopFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     coinCount.changeCount(1);
-                    gradeCount.changeGrade(1); // Add this line to change the grade
-                    // After changing the coin count and grade, update the labels
+                    gradeCount.changeGrade(1);
                     coinsLabel.setText("Coins: " + coinCount.getCurrentCount());
-                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%"); // Update this line to get the current grade
+                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     System.out.println("Error reading from file");
@@ -136,10 +128,9 @@ public class ShopFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     coinCount.changeCount(5);
-                    gradeCount.changeGrade(5); // Add this line to change the grade
-                    // After changing the coin count and grade, update the labels
+                    gradeCount.changeGrade(5);
                     coinsLabel.setText("Coins: " + coinCount.getCurrentCount());
-                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%"); // Update this line to get the current grade
+                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     System.out.println("Error reading from file");
@@ -154,10 +145,9 @@ public class ShopFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     coinCount.changeCount(10);
-                    gradeCount.changeGrade(10); // Add this line to change the grade
-                    // After changing the coin count and grade, update the labels
+                    gradeCount.changeGrade(10);
                     coinsLabel.setText("Coins: " + coinCount.getCurrentCount());
-                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%"); // Update this line to get the current grade
+                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     System.out.println("Error reading from file");
@@ -172,10 +162,9 @@ public class ShopFrame extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 try {
                     coinCount.changeCount(20);
-                    gradeCount.changeGrade(20); // Add this line to change the grade
-                    // After changing the coin count and grade, update the labels
+                    gradeCount.changeGrade(20);
                     coinsLabel.setText("Coins: " + coinCount.getCurrentCount());
-                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%"); // Update this line to get the current grade
+                    ecLabel.setText("Grade: " + gradeCount.getCurrentGrade()+"%");
                 } catch (IOException ex) {
                     ex.printStackTrace();
                     System.out.println("Error reading from file");
@@ -185,12 +174,13 @@ public class ShopFrame extends JFrame {
         this.getContentPane().add(button4);
 
         JLabel titleLabel = new JLabel("Shop");
-        titleLabel.setFont(montserrat20); // Assuming EHS is the desired font
-        titleLabel.setForeground(Color.WHITE); // Set the text color to white
-        titleLabel.setBounds(325, 10, 100, 50); // Adjust the position and size as needed
+        titleLabel.setFont(montserrat20);
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBounds(325, 10, 100, 50);
         this.getContentPane().add(titleLabel);
 
     }
+
     public void updateCoinsLabel() {
         int currentCount = 0;
         try {

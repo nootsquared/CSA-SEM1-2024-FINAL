@@ -83,8 +83,6 @@ public class GamesFrame extends JFrame {
             }
         };
         statsPanel.setBorder(roundedBorder);
-        int coins = 20;
-        int grade = 100;
 
         int currentCount = 0;
         try {
@@ -123,7 +121,6 @@ public class GamesFrame extends JFrame {
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowActivated(WindowEvent e) {
-                // Update the coins label when the window is activated
                 try {
                     coinsLabel.setText("Coins: " + coinCount.getCurrentCount());
                 } catch (IOException ex) {

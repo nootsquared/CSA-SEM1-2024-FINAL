@@ -1,7 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicButtonUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +12,6 @@ public class theframe extends JFrame {
         this.getContentPane().setBackground(Color.DARK_GRAY);
 
         Font EHS = FontLoader.loadFont("fonts\\ElectronicHighwaySign.TTF", 20f);
-        Font montserrat20 = FontLoader.loadFont("fonts\\Montserrat-Medium.ttf", 20f);
 
         JLabel label = new JLabel("Welcome to the panel. What do you want to do?", SwingConstants.CENTER);
         label.setForeground(Color.WHITE);

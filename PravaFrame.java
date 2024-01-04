@@ -91,6 +91,12 @@ public class PravaFrame extends JFrame {
 
         // Request focus on the textArea
         textArea.requestFocusInWindow();
+
+        JLabel titleLabel = new JLabel("Prava");
+        titleLabel.setFont(EHS); // Assuming EHS is the desired font
+        titleLabel.setForeground(Color.WHITE); // Set the text color to white
+        titleLabel.setBounds(325, 10, 100, 50); // Adjust the position and size as needed
+        this.getContentPane().add(titleLabel);
     }
 
     // Add missing imports

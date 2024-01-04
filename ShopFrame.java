@@ -39,7 +39,7 @@ public class ShopFrame extends JFrame {
                 g2d.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
             }
         };
-        statsPanel.setBounds(255, 10, 175, 100);
+        statsPanel.setBounds(255, 110, 175, 100);
         statsPanel.setBackground(new Color(50, 50, 50));
         AbstractBorder roundedBorder = new AbstractBorder() {
             @Override
@@ -110,7 +110,7 @@ public class ShopFrame extends JFrame {
 
         int buttonHeight = 50; // The actual height of the buttons
 
-        CustomButton button1 = new CustomButton("+1 Coin", buttonWidth, buttonHeight, buttonX, 120);
+        CustomButton button1 = new CustomButton("+1 Coin", buttonWidth, buttonHeight, buttonX, 220);
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -130,7 +130,7 @@ public class ShopFrame extends JFrame {
 
         
 
-        CustomButton button2 = new CustomButton("+5 Coins", buttonWidth, buttonHeight, buttonX, 170);
+        CustomButton button2 = new CustomButton("+5 Coins", buttonWidth, buttonHeight, buttonX, 270);
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -148,7 +148,7 @@ public class ShopFrame extends JFrame {
         });
         this.getContentPane().add(button2);
 
-        CustomButton button3 = new CustomButton("+10 Coins", buttonWidth, buttonHeight, buttonX, 220);
+        CustomButton button3 = new CustomButton("+10 Coins", buttonWidth, buttonHeight, buttonX, 320);
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -166,7 +166,7 @@ public class ShopFrame extends JFrame {
         });
         this.getContentPane().add(button3);
 
-        CustomButton button4 = new CustomButton("+20 Coins", buttonWidth, buttonHeight, buttonX, 270);
+        CustomButton button4 = new CustomButton("+20 Coins", buttonWidth, buttonHeight, buttonX, 370);
         button4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -183,6 +183,13 @@ public class ShopFrame extends JFrame {
             }
         });
         this.getContentPane().add(button4);
+
+        JLabel titleLabel = new JLabel("Shop");
+        titleLabel.setFont(montserrat20); // Assuming EHS is the desired font
+        titleLabel.setForeground(Color.WHITE); // Set the text color to white
+        titleLabel.setBounds(325, 10, 100, 50); // Adjust the position and size as needed
+        this.getContentPane().add(titleLabel);
+
     }
     public void updateCoinsLabel() {
         int currentCount = 0;

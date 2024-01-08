@@ -20,7 +20,7 @@ public class GamesFrame extends JFrame {
         this.getContentPane().setBackground(backgroundColor);
 
         this.setLayout(null);
-        CustomButton button = new CustomButton("5 Minute Mayhem (-10)", 350, 350, 175, 70);
+        CustomButton button = new CustomButton("5 Minute Mayhem (-10)", 350, 100, 175, 70);
         button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -51,6 +51,10 @@ public class GamesFrame extends JFrame {
             }
         );
         this.getContentPane().add(button);
+        
+        CustomButton pong = new CustomButton("Pong (-10)", 350, 100, 175, 175); //added 105
+        
+        this.getContentPane().add(pong);
 
         BackButton backButton = new BackButton(this, mainFrame);
         this.getContentPane().add(backButton);

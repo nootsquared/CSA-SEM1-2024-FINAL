@@ -53,7 +53,17 @@ public class GamesFrame extends JFrame {
         this.getContentPane().add(button);
         
         CustomButton pong = new CustomButton("Pong (-10)", 350, 100, 175, 175); //added 105
-        
+        pong.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Point currentLocation = GamesFrame.this.getLocation();
+                Color backgroundColor = getContentPane().getBackground();
+                BallFrame ballFrame = new BallFrame(backgroundColor, GamesFrame.this);
+                ballFrame.setLocation(currentLocation);
+                ballFrame.setVisible(true);
+                GamesFrame.this.setVisible(false);
+            }
+        });
         this.getContentPane().add(pong);
 
         BackButton backButton = new BackButton(this, mainFrame);

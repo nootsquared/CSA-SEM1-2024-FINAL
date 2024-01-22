@@ -5,14 +5,11 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 
-
 public class BallFrame extends JFrame {
-    private BackButton backButton;
-    private BouncingBall bouncingBall;
-    public int frameWidth;
-    public int frameHeight;
-
-    
+    private BackButton backButton; // Declaration of backButton object
+    private BouncingBall bouncingBall; // Declaration of bouncingBall object
+    public int frameWidth; // Declaration of frameWidth variable
+    public int frameHeight; // Declaration of frameHeight variable
 
     public BallFrame(Color backgroundColor, JFrame mainFrame) {
         this.getContentPane().setBackground(backgroundColor);
@@ -20,38 +17,42 @@ public class BallFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         this.getContentPane().setLayout(null);
-        backButton = new BackButton(this, mainFrame);
+        backButton = new BackButton(this, mainFrame); // Creating an instance of BackButton
         backButton.setBounds(10, 10, 100, 50);
         backButton.setOpaque(false);
         this.getContentPane().add(backButton);
 
-        bouncingBall = new BouncingBall(this);
+        bouncingBall = new BouncingBall(this); // Creating an instance of BouncingBall
         bouncingBall.setBounds(0, 0, 700, 700);
         bouncingBall.setOpaque(false);
         this.getContentPane().add(bouncingBall);
 
-        this.addComponentListener(new ComponentAdapter() {
+        this.addComponentListener(new ComponentAdapter() { // Adding a ComponentListener
             @Override
             public void componentResized(ComponentEvent e) {
-                frameWidth = getWidth();
-                frameHeight = getHeight();
+                frameWidth = getWidth(); // Assigning the width of the frame to frameWidth
+                frameHeight = getHeight(); // Assigning the height of the frame to frameHeight
                 System.out.println("Frame width: " + frameWidth + ", Frame height: " + frameHeight);
             }
         });
     }
 }
 
+/**
+ * Represents a bouncing ball in a BallFrame.
+ */
 class BouncingBall extends JPanel {
-    double x = 0, y = 0, vx = 2, vy = 0;
-    double gravity = 0.1, friction = 0.01, restitution = 0.7;
-    int radius = 25;
-    int groundHeight;
-    BallFrame ballFrame;
-    private boolean isDragging = false;
+    double x = 0, y = 0, vx = 2, vy = 0; // Declaration of variables
+    double gravity = 0.1, friction = 0.01, restitution = 0.7; // Declaration of variables
+    int radius = 25; // Declaration of radius variable
+    int groundHeight; // Declaration of groundHeight variable
+    BallFrame ballFrame; // Declaration of ballFrame object
+    private boolean isDragging = false; // Declaration of isDragging variable
 
     public BouncingBall(BallFrame ballFrame) {
-        this.ballFrame = ballFrame;
-        Timer timer = new Timer(5, e -> {
+        this.ballFrame = ballFrame; // Assigning the passed BallFrame object to ballFrame
+
+        Timer timer = new Timer(5, e -> { // Creating a Timer
             //  gravity
             vy += gravity;
 
@@ -63,7 +64,7 @@ class BouncingBall extends JPanel {
             x += vx;
             y += vy;
 
-            // Check for collision with edg
+            // Check for collision with edge
             if (x - radius < 0) {
                 x = radius;
                 vx = -vx * restitution;
@@ -86,7 +87,7 @@ class BouncingBall extends JPanel {
         });
         timer.start();
 
-        this.addMouseMotionListener(new MouseAdapter() {
+        this.addMouseMotionListener(new MouseAdapter() { // Adding a MouseMotionListener
             @Override
             public void mouseDragged(MouseEvent e) {
                 if (isDragging) {
@@ -96,7 +97,7 @@ class BouncingBall extends JPanel {
             }
         });
 
-        this.addMouseListener(new MouseAdapter() {
+        this.addMouseListener(new MouseAdapter() { // Adding a MouseListener
             @Override
             public void mousePressed(MouseEvent e) {
                 double distance = Math.hypot(e.getX() - x, e.getY() - y);

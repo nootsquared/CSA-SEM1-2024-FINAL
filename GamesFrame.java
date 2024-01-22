@@ -8,11 +8,13 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 public class GamesFrame extends JFrame {
-    private JLabel coinsLabel;
-    CoinCount coinCount = new CoinCount("coin.txt");
-    GamesFrame(Color backgroundColor, JFrame mainFrame) {
-        Font montserrat20 = FontLoader.loadFont("fonts/ElectronicHighwaySign.TTF", 22f);
-        Font montserrat10 = FontLoader.loadFont("fonts/ElectronicHighwaySign.TTF", 18f);
+    private JLabel coinsLabel; // JLabel variable declaration
+
+    CoinCount coinCount = new CoinCount("coin.txt"); // CoinCount object creation
+
+    GamesFrame(Color backgroundColor, JFrame mainFrame) { // GamesFrame constructor
+        Font montserrat20 = FontLoader.loadFont("fonts/ElectronicHighwaySign.TTF", 22f); // Font variable declaration
+        Font montserrat10 = FontLoader.loadFont("fonts/ElectronicHighwaySign.TTF", 18f); // Font variable declaration
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
@@ -20,9 +22,11 @@ public class GamesFrame extends JFrame {
         this.getContentPane().setBackground(backgroundColor);
 
         this.setLayout(null);
-        CustomButton button = new CustomButton("5 Minute Mayhem (-10)", 350, 100, 175, 70);
+
+        CustomButton button = new CustomButton("5 Minute Mayhem (-10)", 350, 100, 175, 70); // CustomButton object creation
         button.addActionListener(new ActionListener() {
             @Override
+            //ovveride overrides a superclass method essentially changing it
             public void actionPerformed(ActionEvent e) {
                 try {
                     if (coinCount.getCurrentCount() - 10 >= 0) {
@@ -35,30 +39,31 @@ public class GamesFrame extends JFrame {
                             GamesFrame.this.setVisible(false);
                             unityGameProcess.waitFor();
                             GamesFrame.this.setVisible(true);
-            
+
                             coinCount.changeCount(-10);
-            
+                            //exception is smth that occurs during the execution of a program that disrupts the normal flow of instructions
+                            //try catch is used to handle the exception
+                            //catch prints to the error thingie
                         } catch (IOException | InterruptedException ex) {
                             ex.printStackTrace();
                         }
                     }
-                } 
-                catch (IOException ex) {
+                } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-                    
-                }
+
             }
-        );
+        });
         this.getContentPane().add(button);
-        
-        CustomButton pong = new CustomButton("Pong (free cus it's bad)", 350, 100, 175, 175); //added 105
+
+        CustomButton pong = new CustomButton("Pong (free cus it's bad)", 350, 100, 175, 175); // CustomButton object creation
         pong.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //action event is a parameter passed to the action listener "e" contains info about the action
                 Point currentLocation = GamesFrame.this.getLocation();
                 Color backgroundColor = getContentPane().getBackground();
-                BallFrame ballFrame = new BallFrame(backgroundColor, GamesFrame.this);
+                BallFrame ballFrame = new BallFrame(backgroundColor, GamesFrame.this); // BallFrame object creation
                 ballFrame.setLocation(currentLocation);
                 ballFrame.setVisible(true);
                 GamesFrame.this.setVisible(false);
@@ -66,23 +71,22 @@ public class GamesFrame extends JFrame {
         });
         this.getContentPane().add(pong);
 
-        BackButton backButton = new BackButton(this, mainFrame);
+        BackButton backButton = new BackButton(this, mainFrame); // BackButton object creation
         this.getContentPane().add(backButton);
 
-        JLabel gamesLabel = new JLabel("Games");
+        JLabel gamesLabel = new JLabel("Games"); // JLabel object creation
         gamesLabel.setFont(montserrat20);
         gamesLabel.setBounds(0, 20, 700, 30);
         gamesLabel.setHorizontalAlignment(JLabel.CENTER);
         gamesLabel.setForeground(Color.WHITE);
         this.getContentPane().add(gamesLabel);
 
-
         JPanel statsPanel = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setColor(getBackground());
-                g2d.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+                g2d.fillRoundRect(0, 0, getWidth() - 1, getHeight() - 1, 15, 15);
             }
         };
         statsPanel.setBounds(255, 450, 175, 100);
@@ -93,7 +97,7 @@ public class GamesFrame extends JFrame {
                 Graphics2D g2d = (Graphics2D) g;
                 g2d.setColor(new Color(25, 25, 25));
                 g2d.setStroke(new BasicStroke(3));
-                g2d.drawRoundRect(x, y, width-1, height-1, 15, 15);
+                g2d.drawRoundRect(x, y, width - 1, height - 1, 15, 15);
             }
         };
         statsPanel.setBorder(roundedBorder);
@@ -105,20 +109,19 @@ public class GamesFrame extends JFrame {
             e.printStackTrace();
             System.out.println("Error reading from file");
         }
-        JLabel coinsLabel = new JLabel("Coins: " + currentCount);
+        JLabel coinsLabel = new JLabel("Coins: " + currentCount); // JLabel object creation
         coinsLabel.setFont(montserrat10);
         coinsLabel.setForeground(Color.WHITE);
 
-        GradeCount gradeCount = new GradeCount("grade.txt");
+        GradeCount gradeCount = new GradeCount("grade.txt"); // GradeCount object creation
         int currentGrade = 0;
         try {
-             currentGrade = gradeCount.getCurrentGrade();
-        } 
-        catch (IOException e) {
+            currentGrade = gradeCount.getCurrentGrade();
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error reading from file");
-        }       
-        JLabel ecLabel = new JLabel("Grade: " + currentGrade + "%");
+        }
+        JLabel ecLabel = new JLabel("Grade: " + currentGrade + "%"); // JLabel object creation
         ecLabel.setFont(montserrat10);
         ecLabel.setForeground(Color.WHITE);
 
@@ -144,7 +147,8 @@ public class GamesFrame extends JFrame {
             }
         });
     }
-    public void updateCoinsLabel() {
+
+    public void updateCoinsLabel() { // updateCoinsLabel method
         int currentCount = 0;
         try {
             currentCount = coinCount.getCurrentCount();
@@ -153,6 +157,6 @@ public class GamesFrame extends JFrame {
             System.out.println("Error reading from file");
         }
         coinsLabel.setText("Coins: " + currentCount);
-    }   
-    
+    }
+
 }

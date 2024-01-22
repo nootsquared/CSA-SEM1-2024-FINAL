@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class CustomButton extends JButton {
+    // Constructor
     public CustomButton(String text, int width, int height, int x, int y) {
         super(text);
         setForeground(Color.WHITE);
@@ -14,6 +15,8 @@ public class CustomButton extends JButton {
         setRolloverEnabled(true);
         setContentAreaFilled(false);
         setBounds(x, y, width, height);
+        
+        // Set custom UI for the button
         setUI(new BasicButtonUI() {
             @Override
             public void update(Graphics g, JComponent c) {
@@ -36,6 +39,7 @@ public class CustomButton extends JButton {
         });
 
         try {
+            // Load custom font
             Font ehsFont = Font.createFont(Font.TRUETYPE_FONT, new File("fonts\\ElectronicHighwaySign.TTF")).deriveFont(18f);
             setFont(ehsFont);
         } catch (FontFormatException | IOException e) {

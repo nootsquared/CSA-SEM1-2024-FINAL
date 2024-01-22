@@ -25,7 +25,7 @@ public class GamesFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    if (coinCount.getCurrentCount() - 1 >= 0) {
+                    if (coinCount.getCurrentCount() - 10 >= 0) {
                         try {
                             String unityGamePath = "myfinal\\5MinuteMayham.exe";
                             String width = "1280";
@@ -52,7 +52,7 @@ public class GamesFrame extends JFrame {
         );
         this.getContentPane().add(button);
         
-        CustomButton pong = new CustomButton("Pong (-10)", 350, 100, 175, 175); //added 105
+        CustomButton pong = new CustomButton("Pong (free cus it's bad)", 350, 100, 175, 175); //added 105
         pong.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

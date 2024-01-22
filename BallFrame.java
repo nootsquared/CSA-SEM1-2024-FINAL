@@ -2,12 +2,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class BallFrame extends JFrame {
     private BackButton backButton;
     private BouncingBall bouncingBall;
     public int frameWidth;
     public int frameHeight;
+
+    
 
     public BallFrame(Color backgroundColor, JFrame mainFrame) {
         this.getContentPane().setBackground(backgroundColor);
@@ -43,6 +49,7 @@ class BouncingBall extends JPanel {
     int radius = 25;
     int groundHeight; // Height of the ground from the bottom of the frame
     BallFrame ballFrame;
+    private boolean isDragging = false;
 
     public BouncingBall(BallFrame ballFrame) {
         this.ballFrame = ballFrame;
@@ -80,11 +87,47 @@ class BouncingBall extends JPanel {
             repaint();
         });
         timer.start();
+
+        // ...
+
+        this.addMouseMotionListener(new MouseAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (isDragging) {
+                    x = e.getX() - radius;
+                    y = e.getY() - radius;
+                }
+            }
+        });
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                double distance = Math.hypot(e.getX() - x, e.getY() - y);
+                if (distance < radius) {
+                    isDragging = true;
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                isDragging = false;
+            }
+        });
     }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        g.fillOval((int)(x - radius), (int)(y - radius), 2 * radius, 2 * radius);
+    
+        // Draw the ball
+        g.fillOval((int) (x - radius), (int) (y - radius), 2 * radius, 2 * radius);
+    
+        // Draw the ground
+        int groundY = ballFrame.frameHeight - groundHeight;
+        int lineThickness = 5; // Set the thickness of the line
+        for (int i = 0; i < lineThickness; i++) {
+            g.drawLine(0, groundY + i, ballFrame.frameWidth, groundY + i);
+        }
     }
 }

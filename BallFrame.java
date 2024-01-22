@@ -3,9 +3,8 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 
 public class BallFrame extends JFrame {
     private BackButton backButton;
@@ -23,15 +22,14 @@ public class BallFrame extends JFrame {
         this.getContentPane().setLayout(null);
         backButton = new BackButton(this, mainFrame);
         backButton.setBounds(10, 10, 100, 50);
-        backButton.setOpaque(false); // Make backButton transparent
+        backButton.setOpaque(false);
         this.getContentPane().add(backButton);
 
         bouncingBall = new BouncingBall(this);
         bouncingBall.setBounds(0, 0, 700, 700);
-        bouncingBall.setOpaque(false); // Make bouncingBall transparent
+        bouncingBall.setOpaque(false);
         this.getContentPane().add(bouncingBall);
 
-        // Add a component listener to update the size of the frame whenever it's resized
         this.addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
@@ -47,25 +45,25 @@ class BouncingBall extends JPanel {
     double x = 0, y = 0, vx = 2, vy = 0;
     double gravity = 0.1, friction = 0.01, restitution = 0.7;
     int radius = 25;
-    int groundHeight; // Height of the ground from the bottom of the frame
+    int groundHeight;
     BallFrame ballFrame;
     private boolean isDragging = false;
 
     public BouncingBall(BallFrame ballFrame) {
         this.ballFrame = ballFrame;
         Timer timer = new Timer(5, e -> {
-            // Apply gravity
+            //  gravity
             vy += gravity;
 
             // Apply friction
             vx *= (1 - friction);
             vy *= (1 - friction);
 
-            // Update position
+            // Update pos
             x += vx;
             y += vy;
 
-            // Check for collision with edges
+            // Check for collision with edg
             if (x - radius < 0) {
                 x = radius;
                 vx = -vx * restitution;
@@ -87,8 +85,6 @@ class BouncingBall extends JPanel {
             repaint();
         });
         timer.start();
-
-        // ...
 
         this.addMouseMotionListener(new MouseAdapter() {
             @Override
@@ -119,13 +115,11 @@ class BouncingBall extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-    
-        // Draw the ball
+
         g.fillOval((int) (x - radius), (int) (y - radius), 2 * radius, 2 * radius);
-    
-        // Draw the ground
+
         int groundY = ballFrame.frameHeight - groundHeight;
-        int lineThickness = 5; // Set the thickness of the line
+        int lineThickness = 5;
         for (int i = 0; i < lineThickness; i++) {
             g.drawLine(0, groundY + i, ballFrame.frameWidth, groundY + i);
         }
